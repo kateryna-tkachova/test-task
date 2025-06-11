@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'com.example'
@@ -32,25 +33,17 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
-}
-plugins {
-	id 'jacoco'
+	finalizedBy jacocoTestReport
 }
 
 jacoco {
 	toolVersion = "0.8.10"
 }
 
-test {
-	useJUnitPlatform()
-	finalizedBy jacocoTestReport
-}
-
 jacocoTestReport {
 	dependsOn test
-
 	reports {
 		xml.required = true
 		html.required = true
