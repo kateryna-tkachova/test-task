@@ -21,5 +21,11 @@ jobs:
       - name: Build
         run: ./gradlew build
 
-      - name: Test
-        run: ./gradlew test
+      - name: Run tests with coverage
+        run: ./gradlew test jacocoTestReport
+
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: build/reports/jacoco/test/html
